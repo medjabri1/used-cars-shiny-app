@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="112.974" height="86.784" viewBox="0 0 112.974 86.784">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        stroke: #707070;
+      }
+
+      .cls-3, .cls-4, .cls-5 {
+        opacity: 0.4;
+      }
+
+      .cls-3 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-4 {
+        clip-path: url(#clip-path-2);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_3" data-name="Rectangle 3" class="cls-1" width="40" height="40" transform="translate(919 305)"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_4" data-name="Rectangle 4" class="cls-2" width="40" height="40" transform="translate(919 305)"/>
+    </clipPath>
+  </defs>
+  <g id="Group_1" data-name="Group 1" transform="translate(-895.81 -242)">
+    <g id="Mask_Group_1" data-name="Mask Group 1" class="cls-3" transform="translate(13 -63)">
+      <g id="steering-wheel" transform="translate(919 305)">
+        <circle id="Ellipse_7" data-name="Ellipse 7" class="cls-1" cx="1.172" cy="1.172" r="1.172" transform="translate(18.828 20)"/>
+        <path id="Path_1" data-name="Path 1" class="cls-1" d="M20,0A20,20,0,1,0,40,20,20.043,20.043,0,0,0,20,0Zm0,4.766A15.258,15.258,0,0,1,35.054,17.656H30.99a9.213,9.213,0,0,1-6.717-2.837,5.864,5.864,0,0,0-8.547,0A9.212,9.212,0,0,1,9.01,17.656H4.946A15.258,15.258,0,0,1,20,4.766Zm0,19.922a3.516,3.516,0,1,1,3.516-3.516A3.52,3.52,0,0,1,20,24.688Zm-14.186.867a9.253,9.253,0,0,1,3.639-.867A7.037,7.037,0,0,1,16.4,32.773h0a7.007,7.007,0,0,1-.555,1.886A15.3,15.3,0,0,1,5.814,25.554Zm18.34,9.1a6.989,6.989,0,0,1-.556-1.886h0a7.039,7.039,0,0,1,8.621-7.886,17.121,17.121,0,0,1,1.969.668A15.3,15.3,0,0,1,24.154,34.659Z"/>
+      </g>
+    </g>
+    <g id="Mask_Group_2" data-name="Mask Group 2" class="cls-4" transform="translate(30.311 734.664) rotate(-45)">
+      <g id="steering-wheel-2" data-name="steering-wheel" transform="translate(919 305)">
+        <circle id="Ellipse_8" data-name="Ellipse 8" class="cls-1" cx="1.172" cy="1.172" r="1.172" transform="translate(18.828 20)"/>
+        <path id="Path_2" data-name="Path 2" class="cls-1" d="M20,0A20,20,0,1,0,40,20,20.043,20.043,0,0,0,20,0Zm0,4.766A15.258,15.258,0,0,1,35.054,17.656H30.99a9.213,9.213,0,0,1-6.717-2.837,5.864,5.864,0,0,0-8.547,0A9.212,9.212,0,0,1,9.01,17.656H4.946A15.258,15.258,0,0,1,20,4.766Zm0,19.922a3.516,3.516,0,1,1,3.516-3.516A3.52,3.52,0,0,1,20,24.688Zm-14.186.867a9.253,9.253,0,0,1,3.639-.867A7.037,7.037,0,0,1,16.4,32.773h0a7.007,7.007,0,0,1-.555,1.886A15.3,15.3,0,0,1,5.814,25.554Zm18.34,9.1a6.989,6.989,0,0,1-.556-1.886h0a7.039,7.039,0,0,1,8.621-7.886,17.121,17.121,0,0,1,1.969.668A15.3,15.3,0,0,1,24.154,34.659Z"/>
+      </g>
+    </g>
+    <g id="Mask_Group_4" data-name="Mask Group 4" class="cls-3" transform="translate(546.336 -593.689) rotate(45)">
+      <g id="steering-wheel-3" data-name="steering-wheel" transform="translate(919 305)">
+        <circle id="Ellipse_10" data-name="Ellipse 10" class="cls-1" cx="1.172" cy="1.172" r="1.172" transform="translate(18.828 20)"/>
+        <path id="Path_4" data-name="Path 4" class="cls-1" d="M20,0A20,20,0,1,0,40,20,20.043,20.043,0,0,0,20,0Zm0,4.766A15.258,15.258,0,0,1,35.054,17.656H30.99a9.213,9.213,0,0,1-6.717-2.837,5.864,5.864,0,0,0-8.547,0A9.212,9.212,0,0,1,9.01,17.656H4.946A15.258,15.258,0,0,1,20,4.766Zm0,19.922a3.516,3.516,0,1,1,3.516-3.516A3.52,3.52,0,0,1,20,24.688Zm-14.186.867a9.253,9.253,0,0,1,3.639-.867A7.037,7.037,0,0,1,16.4,32.773h0a7.007,7.007,0,0,1-.555,1.886A15.3,15.3,0,0,1,5.814,25.554Zm18.34,9.1a6.989,6.989,0,0,1-.556-1.886h0a7.039,7.039,0,0,1,8.621-7.886,17.121,17.121,0,0,1,1.969.668A15.3,15.3,0,0,1,24.154,34.659Z"/>
+      </g>
+    </g>
+    <circle id="Ellipse_11" data-name="Ellipse 11" class="cls-5" cx="6" cy="6" r="6" transform="translate(946 286)"/>
+  </g>
+</svg>

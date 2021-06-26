@@ -1,0 +1,257 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat');
+
+    *,
+    *::before,
+    *::after,
+    .container-fluid {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100vh;
+    }
+
+    a,
+    a:hover,
+    a:visited {
+        text-decoration: none;
+        color: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        letter-spacing: inherit;
+        font-family: inherit;
+    }
+
+    .container-fluid {
+        height: 100%;
+    }
+
+    .showcase-container {
+        font-size: 3rem;
+        /* background-color: #676767; */
+        width: 100%;
+        height: 100%;
+    }
+
+    .showcase-background {
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    .showcase-overlay {
+        width: 100%;
+        height: 100%;
+        background-color: #676767;
+        opacity: .8;
+    }
+
+    .showcase-background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: -1000;
+    }
+
+    .showcase-content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .showcase-logo {
+        margin-top: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .showcase-logo .showcase-logo-img {
+        width: 80px;
+        height: 100%;
+        animation: main-logo-anim 5000ms infinite alternate-reverse;
+    }
+
+    @keyframes main-logo-anim {
+
+        0%,
+        50% {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .showcase-logo .showcase-logo-title {
+        font-size: 3.5rem;
+        margin: -10px !important;
+        padding: 0 !important;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        color: #FFF;
+        letter-spacing: 2px;
+        opacity: .7;
+    }
+
+    .showcase-description {
+        width: 800px;
+        margin-top: -20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .showcase-description span {
+        display: inline-block;
+        padding: 8px;
+        font-size: 2rem;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        color: #FFF;
+        letter-spacing: 5px;
+        opacity: .7;
+        text-align: center;
+        line-height: 2.5rem;
+    }
+
+    .showcase-buttons {
+        width: 100%;
+        max-width: 1000px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .showcase-buttons .showcase-button-element {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: .5;
+        transition: opacity 200ms ease-in-out;
+    }
+
+    .showcase-buttons .showcase-button-element .icon {
+        height: 40px;
+        width: 40px;
+        color: #FFF;
+        filter: invert(1);
+    }
+
+    .showcase-buttons .showcase-button-element .title {
+        font-size: 1.5rem;
+        text-align: center;
+        font-family: 'Montserrat';
+        font-weight: 600;
+        letter-spacing: 2px;
+        color: #FFF;
+    }
+
+    .showcase-buttons .showcase-button-element::before,
+    .showcase-buttons .showcase-button-element::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background-color: #FFF;
+        opacity: .2;
+        animation: showcase-buttons-anim 5000ms infinite alternate;
+    }
+
+    .showcase-buttons .showcase-button-element::after {
+        width: 100px;
+        height: 100px;
+    }
+
+    @keyframes showcase-buttons-anim {
+
+        0%,
+        20%,
+        100% {
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+
+        50% {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+    }
+
+    .showcase-buttons .showcase-button-element:hover {
+        opacity: .8;
+    }
+
+    .showcase-footer {
+        font-size: .9rem;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        color: #FFF;
+        letter-spacing: 5px;
+        opacity: .5;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="showcase-container">
+
+    <div class="showcase-background">
+        <div class="showcase-overlay"></div>
+        <img src="./Assets/used-cars-background.jpg" alt="" class="showcase-background-image">
+    </div>
+
+    <div class="showcase-content">
+
+        <div class="showcase-logo">
+            <img src="./Assets/logo.svg" alt="" class="showcase-logo-img">
+            <h1 class="showcase-logo-title">Used-Cars</h1>
+        </div>
+
+        <p class="showcase-description">
+            <span>Here you can find Americans used cars statistics,</span>
+            <span>and you can also predict a car price just by giving its caracteristics</span>
+        </p>
+
+        <div class="showcase-buttons">
+            <a href="#" class="showcase-button-element">
+                <img src="./Assets/dashboard.svg" alt="Dashboard icon" class="icon">
+                <p class="title">Dashboard</p>
+            </a>
+
+            <a href="#" class="showcase-button-element">
+                <img src="./Assets/predictive-chart.svg" alt="Predictive chart icon" class="icon">
+                <p class="title">Price Prediction</p>
+            </a>
+        </div>
+
+        <p class="showcase-footer">All copyrights goes to <a href="https://mjr-dev.netlify.com"
+                target="_blank">MJR-Dev</a> &copy; 2021
+        </p>
+
+
+    </div>
+
+</div>
