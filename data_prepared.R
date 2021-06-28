@@ -36,4 +36,4 @@ used_cars_data <- filter(
   paint_color != ""
 )
 
-View(used_cars_data)
+# View(used_cars_data)

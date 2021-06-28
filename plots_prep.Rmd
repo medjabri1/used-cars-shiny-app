@@ -24,19 +24,42 @@ source("./data_prepared.R")
 
 ```
 
-Increasing price by year Plot
+Vehicles prices by year Plot
 
 ```{r}
 
-price_inscreasing_plot <- used_cars_data %>%
-  sample_n(200) %>%
+vehicles_prices_plot <- used_cars_data %>%
+  head(200) %>%
   ggplot( aes(x = year, y = price, size = odometer, color = size)) +
     geom_point(alpha = 0.5) +
     # theme_minimal() +
     theme_ipsum() +
     ggtitle("Cars price by year : Demo 200 cars")
 
-ggplotly(price_inscreasing_plot)
+ggplotly(vehicles_prices_plot)
+
+```
+
+
+Price increase Histogram Plot
+
+```{r}
+
+price_hist_plot <- used_cars_data %>%
+  head(200) %>%
+  filter(year > 2005) %>%
+  filter(year < 2025) %>%
+  group_by(year) %>%
+  mutate(price = mean(price)) %>%
+  ggplot(aes(x = year, y = price)) +
+  geom_line(alpha = 0.2, colour = "black") +
+  geom_segment(alpha = 0.05, colour = "black", aes(x = year, xend = year, y = price, yend = 0)) +
+  geom_point(size = 1, aes(colour = year)) +
+  theme_ipsum() +
+  theme(legend.position = "none") +
+  ggtitle("Price increase by year")
+
+ggplotly(price_hist_plot)
 
 ```
 
@@ -46,43 +69,53 @@ condition and drive and  by price Plot
 ```{r}
 
 condition_price_plot <- used_cars_data %>%
-  sample_n(100) %>%
+  head(100) %>%
   ggplot( aes(x = condition, y = price)) +
   geom_boxplot(alpha = 0.7) +
   geom_point(alpha = 0.5, aes(colour = drive, size = odometer))
-  theme_ipsum() +
+  theme_bw() +
   ggtitle("Condition and drive vehicles type by price")
   
 ggplotly(condition_price_plot)
 
 ```
 
-Vehicles Manufacturers count plot 
+number of Vehicles by manufacturers
 
 ```{r}
 
-manufacturer_plot <- used_cars_data %>%
-  ggplot(aes(x = manufacturer)) +
-  geom_bar(alpha = 0.5) +
+vehicles_nbr_manufacturer_plot <- used_cars_data %>%
+  count(manufacturer) %>%
+  ggplot(aes(x = reorder(manufacturer, -n, desc), y = n, colour = manufacturer)) +
+  geom_point(size = 2, alpha = 0.7) +
+  geom_segment(alpha = 0.7, size = 0.5, aes(x = manufacturer, xend = manufacturer, y = n, yend = 0)) +
   coord_flip() +
   theme_bw() +
-  ggtitle("Vehicles Manufacturers") +
-  labs(x = "Manufacturer", y = "Number of vehicles")
+  theme(legend.position = "none") +
+  labs(x = "", y = "Number of vehicles") +
+  ggtitle("Number of vehicles by manufacturers : Top") 
 
-ggplotly(manufacturer_plot)
+ggplotly(vehicles_nbr_manufacturer_plot)
+
 
 ```
+
+
 
 Vehicles count by fuel type Plot
 
 ```{r}
 
 fuel_count_plot <- used_cars_data %>%
-  ggplot(aes(x = fuel)) +
-  geom_bar(alpha = 0.5) +
+  count(fuel) %>%
+  ggplot(aes(x = reorder(fuel, -n, desc), y = n, colour = fuel)) +
+  geom_point(size = 4) +
+  geom_segment(size = 1.5, aes(x = fuel, xend = fuel, y = n, yend = 0)) +
+  scale_x_discrete() +
   coord_flip() +
-  ggtitle("Vehicles count by fuel type") +
-  labs(x = "Fuel type", y = "Number of vehicles") +
+  theme(legend.position = "none") +
+  ggtitle("Top fuel by vehicles number") +
+  labs(x = "", y = "Number of vehicles") +
   theme_bw()
 
 ggplotly(fuel_count_plot)
@@ -95,15 +128,19 @@ Price by state plot
 ```{r}
 
 price_state_plot <- used_cars_data %>%
-  # sample_n(5000) %>%
-  ggplot(aes(x = state)) +
-  geom_bar(alpha = 0.5) +
+  count(state) %>%
+  mutate(state = stri_trans_toupper(state)) %>%
+  ggplot(aes(x = reorder(state, -n, desc), y = n, colour = state)) +
+  geom_point(size = 5) +
+  geom_segment(size = 3, aes(x = state, xend = state, y = n, yend = 0)) +
   coord_flip() +
+  theme_bw() +
+  theme(legend.position = "none") +
   ggtitle("Number of vehicles per state") +
   labs(x = "State", y = "Number of vehicles")
-  theme_bw()
 
 ggplotly(price_state_plot)
 
 ```
+
 
