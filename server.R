@@ -1,7 +1,7 @@
 library(shiny)
 library(shinydashboard)
 
-server <- function (input, output) {}
+server <- function(input, output, session) {}
 
 # server <- function(input, output) {
 #   output$progressBox <- renderInfoBox({

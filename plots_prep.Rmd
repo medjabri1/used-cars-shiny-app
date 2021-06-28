@@ -1,0 +1,109 @@
+Loading libraries
+
+```{r}
+
+library(ggplot2)
+library(plotly)
+# library(ggthemes)
+library(dplyr)
+library(caTools)
+library(hrbrthemes)
+library(stringi)
+
+```
+
+Loading data 
+
+```{r}
+
+# Execute the data preparation file to get data from it
+
+source("./data_prepared.R")
+
+# dataset name = used_cars_data
+
+```
+
+Increasing price by year Plot
+
+```{r}
+
+price_inscreasing_plot <- used_cars_data %>%
+  sample_n(200) %>%
+  ggplot( aes(x = year, y = price, size = odometer, color = size)) +
+    geom_point(alpha = 0.5) +
+    # theme_minimal() +
+    theme_ipsum() +
+    ggtitle("Cars price by year : Demo 200 cars")
+
+ggplotly(price_inscreasing_plot)
+
+```
+
+
+condition and drive and  by price Plot
+
+```{r}
+
+condition_price_plot <- used_cars_data %>%
+  sample_n(100) %>%
+  ggplot( aes(x = condition, y = price)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_point(alpha = 0.5, aes(colour = drive, size = odometer))
+  theme_ipsum() +
+  ggtitle("Condition and drive vehicles type by price")
+  
+ggplotly(condition_price_plot)
+
+```
+
+Vehicles Manufacturers count plot 
+
+```{r}
+
+manufacturer_plot <- used_cars_data %>%
+  ggplot(aes(x = manufacturer)) +
+  geom_bar(alpha = 0.5) +
+  coord_flip() +
+  theme_bw() +
+  ggtitle("Vehicles Manufacturers") +
+  labs(x = "Manufacturer", y = "Number of vehicles")
+
+ggplotly(manufacturer_plot)
+
+```
+
+Vehicles count by fuel type Plot
+
+```{r}
+
+fuel_count_plot <- used_cars_data %>%
+  ggplot(aes(x = fuel)) +
+  geom_bar(alpha = 0.5) +
+  coord_flip() +
+  ggtitle("Vehicles count by fuel type") +
+  labs(x = "Fuel type", y = "Number of vehicles") +
+  theme_bw()
+
+ggplotly(fuel_count_plot)
+
+```
+
+
+Price by state plot
+
+```{r}
+
+price_state_plot <- used_cars_data %>%
+  # sample_n(5000) %>%
+  ggplot(aes(x = state)) +
+  geom_bar(alpha = 0.5) +
+  coord_flip() +
+  ggtitle("Number of vehicles per state") +
+  labs(x = "State", y = "Number of vehicles")
+  theme_bw()
+
+ggplotly(price_state_plot)
+
+```
+

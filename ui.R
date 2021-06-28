@@ -1,20 +1,121 @@
+# Preparing environnement
+
+# Loading libraries
+
 library(shiny)
 library(shinydashboard)
+library(shinymaterial)
 
-ui <- fluidPage(
-  
-  htmlTemplate("./www/Components/Showcase/Showcase.html"),
-  
+# Creating pages 
 
+home_page <- htmlTemplate("./www/Components/Showcase/Showcase.html", title = "Used-Cars")
+
+
+# Creating UI Object for server to render
+
+# ui <- fluidPage(
+#   title = "USA Used-Cars",
+#   home_page,
+# )
+
+ui <- dashboardPage(
+
+  # Skin Theme of dashboard
+  skin = "green",
   
+  # Header of dashboard container
+  dashboardHeader(
+
+    # Disable header of dashboard
+    disable = FALSE,
+
+    # Title of Dashboard
+    title = "Used-Cars",
+
+    # Drop Down menu to show progress
+    dropdownMenu(
+      type = "tasks", 
+      badgeStatus = "success",
+
+      taskItem(value = 60, color = "green",
+        "Documentation"
+      ),
+      taskItem(value = 17, color = "aqua",
+        "Project X"
+      ),
+      taskItem(value = 0, color = "yellow",
+        "Server deployment"
+      ),
+      taskItem(value = 30, color = "red",
+        "Overall project"
+      )
+    )
+  ),
   
-  
+  # Side bar of dashboard
+  dashboardSidebar(
+    
+    # Side bar Menu
+    sidebarMenu(
+      
+      # Side bar Menu elements
+      # Home tab
+      menuItem("Home", tabName = "home", icon = icon("home")),
+      
+      # Dashboard tab
+      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
+
+      # Price Prediction tab 
+      menuItem("Price Prediction", tabName = "prediction", icon = icon("th"))
+    )
+  ),
+  dashboardBody(
+
+    # Link External Scripts / Stylesheets
+
+    tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "custom.css"),
+      tags$link(rel = "stylesheet", type = "text/css", href = "https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap"),
+    ),
+
+    tabItems(
+
+      # Home tab content
+      tabItem(
+        tabName = "home",
+        div(
+          style = "height : 86vh ",
+          home_page
+        )
+      ),
+      
+      # Dashboard tab content
+      tabItem(
+        tabName = "dashboard",
+        fluidRow(
+          box(plotOutput("plot1", height = 250)),
+          
+          box(
+            title = "Controls",
+            sliderInput("slider", "Number of observations:", 1, 100, 50)
+          )
+        )
+      ),
+      
+      # Price Prediction tab content
+      tabItem(
+        tabName = "prediction",
+        h2("Price Prediction tab content")
+      )
+    )
+  )
 )
 
 
 
+# Working directory
 
-
+# setwd("~/EST/LP/Stage/Projet")
 
 
 

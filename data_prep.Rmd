@@ -1,0 +1,132 @@
+Preparing Environnement
+
+Loading libraries
+
+```{r}
+
+library(dplyr)
+library(Amelia)
+library(psych)
+
+```
+
+Loading Data from csv file
+
+```{r}
+
+# Laoding data from csv file
+
+used_cars_data <- read.csv("./Dataset/vehicles.csv")
+
+# Loading data as table format to RStudio
+View(used_cars_data)
+
+```
+
+Studying data structure
+
+```{r}
+
+# All Colmuns names available in dataset
+
+cat("\n\nColumns names : \n\n")
+colnames(used_cars_data)
+
+# Structure of dataset
+
+cat("\n\nDataset structure : \n\n")
+str(used_cars_data)
+
+# SUmmary of dataset
+
+cat("\n\nDataset Summary : \n\n")
+summary(used_cars_data)
+
+```
+
+Dataset Statistic Description
+
+```{r}
+
+# Description of dataset
+
+cat("\n\nDataset Description : \n\n")
+describe(head(used_cars_data))
+
+```
+
+Dataset Samples / head - tail
+
+```{r}
+
+# First few rows of dataset
+
+head(used_cars_data)
+
+# Last few rows of dataset
+
+tail(used_cars_data)
+
+```
+
+Cleaning Data / Columns
+
+```{r}
+
+colnames(used_cars_data)
+
+used_cars_data <- select(used_cars_data, -id, -url, -county, -description, -image_url, -region_url, -VIN, -model)
+
+colnames(used_cars_data)
+
+```
+
+Checking NA values from observations
+
+```{r}
+
+# Missing values from observations in dataset
+
+missmap(used_cars_data)
+
+# Missing values of specific columns
+
+missmap(select(used_cars_data, odometer))
+missmap(select(used_cars_data, year))
+
+```
+
+Cleaning Data / Rows
+
+```{r}
+
+# Remove observations with NA values on them
+
+used_cars_data <- na.omit(used_cars_data)
+
+# Remove observations with price = 0 or price lower than 500 and bigger than 400000
+# Remove observations with empty values
+
+used_cars_data <- filter(
+  used_cars_data, 
+  
+  price > 499, 
+  price < 400000, 
+  manufacturer != "", 
+  cylinders != "", 
+  drive != "",
+  size != "",
+  paint_color != ""
+)
+
+
+# Check missing values after clean-up
+
+missmap(used_cars_data)
+
+```
+
+
+
+
+
