@@ -36,4 +36,7 @@ used_cars_data <- filter(
   paint_color != ""
 )
 
+# Save data into r data format to reduce time load and not repeat all functions all over again
+# saveRDS(used_cars_data, "my_data.rds")
+
 # View(used_cars_data)

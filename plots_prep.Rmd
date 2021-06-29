@@ -16,9 +16,8 @@ Loading data
 
 ```{r}
 
-# Execute the data preparation file to get data from it
-
-source("./data_prepared.R")
+# Load data from r data format file "RDS" "my_data.rds"
+used_cars_data <- readRDS("my_data.rds")
 
 # dataset name = used_cars_data
 
@@ -143,4 +142,23 @@ ggplotly(price_state_plot)
 
 ```
 
+
+
+Tests
+
+```{r}
+
+Temperature <- airquality$Temp
+hist(Temperature)
+
+# hist(Temperature,
+# main="Maximum daily temperature at La Guardia Airport",
+# xlab="Temperature in degrees Fahrenheit",
+# xlim=c(50,100),
+# col="darkmagenta",
+# freq=FALSE
+# )
+
+
+```
 

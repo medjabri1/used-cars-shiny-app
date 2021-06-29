@@ -6,23 +6,26 @@ library(shiny)
 library(shinydashboard)
 library(shinymaterial)
 
-# Creating pages 
-
-home_page <- htmlTemplate("./www/Components/Showcase/Showcase.html", title = "Used-Cars")
-
-
-# Creating UI Object for server to render
+library(ggplot2)
+library(plotly)
+# library(ggthemes)
+library(dplyr)
+library(caTools)
+library(hrbrthemes)
 
 # ui <- fluidPage(
-#   title = "USA Used-Cars",
-#   home_page,
+#   plotlyOutput("plot_price_increase_years"),
+#   div("Hello world"),
+#   plotOutput("test_plot")
 # )
 
-ui <- dashboardPage(
+# Creating pages 
+
+ui_test <- dashboardPage(
 
   # Skin Theme of dashboard
-  skin = "green",
-  
+  skin = "blue",
+
   # Header of dashboard container
   dashboardHeader(
 
@@ -34,7 +37,7 @@ ui <- dashboardPage(
 
     # Drop Down menu to show progress
     dropdownMenu(
-      type = "tasks", 
+      type = "tasks",
       badgeStatus = "success",
 
       taskItem(value = 60, color = "green",
@@ -51,21 +54,21 @@ ui <- dashboardPage(
       )
     )
   ),
-  
+
   # Side bar of dashboard
   dashboardSidebar(
-    
+
     # Side bar Menu
     sidebarMenu(
-      
+
       # Side bar Menu elements
       # Home tab
       menuItem("Home", tabName = "home", icon = icon("home")),
-      
+
       # Dashboard tab
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
 
-      # Price Prediction tab 
+      # Price Prediction tab
       menuItem("Price Prediction", tabName = "prediction", icon = icon("th"))
     )
   ),
@@ -85,23 +88,93 @@ ui <- dashboardPage(
         tabName = "home",
         div(
           style = "height : 86vh ",
-          home_page
+          htmlTemplate("./www/Components/Showcase/Showcase.html", title = "Used-Cars")
         )
       ),
-      
+
       # Dashboard tab content
       tabItem(
         tabName = "dashboard",
+        
+        # Price Increase section
         fluidRow(
-          box(plotOutput("plot1", height = 250)),
-          
-          box(
-            title = "Controls",
-            sliderInput("slider", "Number of observations:", 1, 100, 50)
+          fluidRow(
+            column(
+              width = 12,
+              htmlTemplate("./www/Components/section_header.html", title = "Price increase by years")
+            ),
+            
+            column(
+              style = "padding-left : 50px",
+              width = 12,
+              sliderInput(
+                "price_increase_range_slider_input", 
+                "Years range of price increase displayed :", 
+                min = 1960, max = 2025, value = c(1995, 2015)
+              )  
+            ),
+            
+            column(
+              style = "padding: 30px; padding-top : 0px",
+              width = 12,
+              plotlyOutput("plot_price_increase_years")
+            )
+          )
+        ),
+        
+        # Top manufacturers section
+        fluidRow(
+          fluidRow(
+            column(
+              width = 12,
+              htmlTemplate("./www/Components/section_header.html", title = "Top manufacturers by vehicles count")
+            ),
+            
+            column(
+              style = "padding-left : 50px",
+              width = 12,
+              sliderInput(
+                "manufacturer_vehicles_slider_input", 
+                "Number of displayed manufacturers : ", 
+                min = 2, max = 40, value = 10
+              )  
+            ),
+            
+            column(
+              style = "padding: 30px; padding-top : 0px",
+              width = 12,
+              plotlyOutput("plot_manufacturer_vehicles")
+            )
+          )
+        ),
+        
+        # Top manufacturers section
+        fluidRow(
+          fluidRow(
+            column(
+              width = 12,
+              htmlTemplate("./www/Components/section_header.html", title = "Vehicles prices over the years")
+            ),
+            
+            column(
+              style = "padding-left : 50px",
+              width = 12,
+              sliderInput(
+                "vehicles_demo_nbr_slider_input", 
+                "Number of vehicles demo : ", 
+                min = 20, max = 500, value = 200, step = 10
+              )  
+            ),
+            
+            column(
+              style = "padding: 30px; padding-top : 0px",
+              width = 12,
+              plotlyOutput("plot_vehicles_prices_year")
+            )
           )
         )
       ),
-      
+
       # Price Prediction tab content
       tabItem(
         tabName = "prediction",
@@ -111,141 +184,5 @@ ui <- dashboardPage(
   )
 )
 
-
-
 # Working directory
-
 # setwd("~/EST/LP/Stage/Projet")
-
-
-
-
-
-
-# ------------------------------------------------------
-
-# customDiv <- function() {
-#   div(class = "div", "Hello world") 
-# }
-# 
-# ui <- dashboardPage(
-#   
-#   # Header of dashboard container
-#   dashboardHeader(
-#     # Title of Dashboard
-#     title = "Cars Dashboard"
-#   ),
-#   
-#   # Side bar of dashboard
-#   dashboardSidebar(
-#     
-#     # Side bar Menu
-#     sidebarMenu(
-#       
-#       # Side bar Menu elements
-#       # Dashboard tab
-#       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-#       
-#       # Price Prediction tab 
-#       menuItem("Price Prediction", tabName = "prediction", icon = icon("th"))
-#     )
-#   ),
-#   dashboardBody(
-#     tabItems(
-#       
-#       # Dashboard tab content
-#       tabItem(tabName = "dashboard",
-#               fluidRow(
-#                 box(plotOutput("plot1", height = 250)),
-#                 
-#                 box(
-#                   title = "Controls",
-#                   sliderInput("slider", "Number of observations:", 1, 100, input$sliderValue)
-#                 )
-#               )
-#       ),
-#       
-#       # Price Prediction tab content
-#       tabItem(tabName = "prediction",
-#               h2("Price Prediction tab content")
-#       )
-#     ), 
-#     
-#     
-#     # Custom div 
-#     customDiv()
-#   )
-# )
-
-# Cards / Tabs
-
-# body <- dashboardBody(
-#   fluidRow(
-#     tabBox(
-#       title = "First tabBox",
-#       # The id lets us use input$tabset1 on the server to find the current tab
-#       id = "tabset1", height = "250px",
-#       tabPanel("Tab1", "First tab content"),
-#       tabPanel("Tab2", "Tab content 2")
-#     ),
-#     tabBox(
-#       side = "right", height = "250px",
-#       selected = "Tab3",
-#       tabPanel("Tab1", "Tab content 1"),
-#       tabPanel("Tab2", "Tab content 2"),
-#       tabPanel("Tab3", "Note that when side=right, the tab order is reversed.")
-#     )
-#   ),
-#   fluidRow(
-#     tabBox(
-#       # Title can include an icon
-#       title = tagList(shiny::icon("gear"), "tabBox status"),
-#       tabPanel("Tab1",
-#                "Currently selected tab from first box:",
-#                verbatimTextOutput("tabset1Selected")
-#       ),
-#       tabPanel("Tab2", "Tab content 2")
-#     )
-#   )
-# )
-# 
-# ui <- dashboardPage (
-#   dashboardHeader(title = "tabBoxes"),
-#   dashboardSidebar(),
-#   body
-# )
-
-# Dashboard try
-
-# ui <- dashboardPage(
-#   dashboardHeader(title = "Info boxes"),
-#   dashboardSidebar(),
-#   dashboardBody(
-#     # infoBoxes with fill=FALSE
-#     fluidRow(
-#       # A static infoBox
-#       infoBox("New Orders", 10 * 2, icon = icon("credit-card")),
-#       # Dynamic infoBoxes
-#       infoBoxOutput("progressBox"),
-#       infoBoxOutput("approvalBox")
-#     ),
-#     
-#     # infoBoxes with fill=TRUE
-#     fluidRow(
-#       infoBox("New Orders", 10 * 2, icon = icon("credit-card"), fill = TRUE),
-#       infoBoxOutput("progressBox2"),
-#       infoBoxOutput("approvalBox2")
-#     ),
-#     
-#     fluidRow(
-#       # Clicking this will increment the progress amount
-#       box(width = 4, height = 150, actionButton("count", "Increment progress")),
-#       box( 
-#         width = 8,
-#         height = 150,
-#         title = "Controls",
-#         sliderInput("slider", "Number of observations:", 2, 100, 50, 2)
-#       )
-#     )
-#   )
-# )
