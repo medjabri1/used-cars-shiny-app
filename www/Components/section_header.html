@@ -17,24 +17,23 @@
             radial-gradient(#6887c922 15%, transparent 20%) 0 1px,
             radial-gradient(#6887c922 15%, transparent 20%) 8px 9px;
 
-        background-color: #6887c9;
+        /* background-color: #6887c9; */
         background-size: 16px 16px;
 
-        border-radius: 10px;
+        border-radius: 5px;
     }
 
     .section-header-title {
-        color: #FFF;
-        opacity: .9;
-        font-size: 3rem;
+        color: #FFFFFFee;
+        opacity: 1;
+        font-size: 2.5rem;
         font-family: 'Kaushan Script', cursive;
         letter-spacing: 1px;
         text-align: center;
     }
 </style>
 
-<div class="section-header">
+<div class="section-header" style=" background-color: {{ bgcolor }}">
 
-    <p class="section-header-title">{{ title }}</p>
-
+    <p class=" section-header-title">{{ title }}</p>
 </div>

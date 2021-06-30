@@ -17,7 +17,9 @@ Loading data
 ```{r}
 
 # Load data from r data format file "RDS" "my_data.rds"
-used_cars_data <- readRDS("my_data.rds")
+
+setwd("~/EST/LP/Stage/Projet")
+used_cars_data <- readRDS("./data/my_data.rds")
 
 # dataset name = used_cars_data
 
@@ -141,7 +143,6 @@ price_state_plot <- used_cars_data %>%
 ggplotly(price_state_plot)
 
 ```
-
 
 
 Tests
