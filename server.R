@@ -17,9 +17,9 @@ setwd("~/EST/LP/Stage/Projet")
 
 source("./dashboard_overview.R")
 
-# Load regression tree model from rds file ./model/tree_model.rds
+# Load random forest regressor model from rds file ./model/rf_model.rds
 
-tree_model <- readRDS("./model/tree_model.rds")
+rf_model <- readRDS("./model/rf_model.rds")
 
 server <- function(input, output) {
 
@@ -321,30 +321,26 @@ server <- function(input, output) {
     
     cat("prediction started\n")
     
-    item.region <- stri_trans_tolower(input$region_select_input)
-    item.odometer <- input$odometer_number_input
-    item.manufacturer <- stri_trans_tolower(input$manufacturer_select_input)
-    item.condition <- stri_trans_tolower(input$condition_select_input) ########
-    item.year <- as.numeric(input$year_select_input)
-    item.type <- stri_trans_tolower(input$type_select_input) #######
-    item.title_status <- stri_trans_tolower(input$status_select_input)
-    item.cylinders <- stri_trans_tolower(input$cylinders_select_input)
-    item.fuel <- stri_trans_tolower(input$fuel_select_input)
-    item.transmission <- stri_trans_tolower(input$transmission_select_input)
-    item.size <- stri_trans_tolower(input$size_select_input)
-    item.drive <- stri_trans_tolower(input$drive_select_input)
-    item.paint_color <- stri_trans_tolower(input$paint_select_input)
-    item.state <- stri_trans_tolower(input$state_select_input)
+    item <- used_cars_data %>% head(1) %>% select(-price)
     
-    pred <- predict(tree_model, item)
+    item$region <- stri_trans_tolower(input$region_select_input)
+    item$odometer <- input$odometer_number_input
+    item$manufacturer <- stri_trans_tolower(input$manufacturer_select_input)
+    item$condition <- stri_trans_tolower(input$condition_select_input)
+    item$year <- as.numeric(input$year_select_input)
+    item$type <- stri_trans_tolower(input$type_select_input)
+    item$title_status <- stri_trans_tolower(input$status_select_input)
+    item$cylinders <- stri_trans_tolower(input$cylinders_select_input)
+    item$fuel <- stri_trans_tolower(input$fuel_select_input)
+    item$transmission <- stri_trans_tolower(input$transmission_select_input)
+    item$size <- stri_trans_tolower(input$size_select_input)
+    item$drive <- stri_trans_tolower(input$drive_select_input)
+    item$paint_color <- stri_trans_tolower(input$paint_select_input)
+    item$state <- stri_trans_tolower(input$state_select_input)
     
-    cat("\n\n\n")
-    (item)
-    cat("\n\n\n")
-    cat(pred[1])
-    
-    # output$predicted_price_output <- renderText({ paste("Predicted price :", round(pred[1], digits = 0), "$") })
-    output$predicted_price_output <- renderText({ item.type })
+    pred <- predict(rf_model, item)
+  
+    output$predicted_price_output <- renderText({ paste("Predicted price :", round(pred[1], digits = 0), "$") })
     
     cat("prediction finished\n")
   })

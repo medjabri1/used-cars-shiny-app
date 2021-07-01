@@ -8,9 +8,16 @@ library(rpart)
 library(rpart.plot)  
             
 library(ipred)       
-library(caret)      
+library(caret)   
+
+library(pROC)
 
 library(Metrics)
+
+library(randomForest)
+
+library(ggplot2)
+library(plotly)
 
 ```
 
@@ -69,55 +76,102 @@ saveRDS(tree, "./model/tree_model.rds")
 
 ```
 
-Plot decision tree model
+Create random forest model
 
 ```{r}
 
-rpart.plot(tree, digits = 2)
-
-plotcp(tree)
+rf_model <- randomForest(price ~ ., data = train_data, mtry = 3, importance = TRUE)
 
 ```
 
-Prediction with model on test data
+Importance and variables usage
 
 ```{r}
 
-pred <- predict(tree, test_data)
+# varImpPlot(rf_model)
+# colnames(rf_model)
+# varUsed(rf_model)
+
+imp <- as.data.frame(importance(rf_model))
+imp$varnames <- rownames(imp) # row names to column
+rownames(imp) <- NULL  
+colnames(imp) <- c("MeanDecreaseAccuracy", "MeanDecreaseGini", "varnames")
+
+# MeanDecreaseAccuracy plot
+
+mda_plot <- imp %>%
+  ggplot(aes(x = reorder(varnames, MeanDecreaseAccuracy), y = MeanDecreaseAccuracy, colour = varnames)) +
+  geom_point(size = 3) +
+  geom_segment(alpha = 0.7,  size = 1, 
+               aes(x = varnames, xend = varnames, y = 0, yend = MeanDecreaseAccuracy)) +
+  coord_flip() +
+  labs(x = "", y = "MeanDecreaseAccuracy") +
+  theme_bw() +
+  ggtitle("MeanDecreaseAccuracy") +
+  theme(legend.position = "none")
+
+# MeanDecreaseGini plot
+
+mdg_plot <- imp %>%
+  ggplot(aes(x = reorder(varnames, MeanDecreaseGini), y = MeanDecreaseGini, colour = varnames)) +
+  geom_point(size = 3) +
+  geom_segment(alpha = 0.7,  size = 1, 
+               aes(x = varnames, xend = varnames, y = 0, yend = MeanDecreaseGini)) +
+  coord_flip() +
+  labs(x = "", y = "MeanDecreaseGini") +
+  theme_bw() +
+  ggtitle("MeanDecreaseGini") +
+  theme(legend.position = "none")
+
+# Display Plots
+
+ggplotly(mda_plot)
+ggplotly(mdg_plot)
+
+# Both plots in one plot
+
+# subplot(mda_plot, mdg_plot, nrows = 1, margin = 0.04, widths = c(0.5, 0.5))
+  
 
 ```
 
-predicton test
+Plot random forest model
 
 ```{r}
 
-# item <- tail(used_cars_data, 1) %>% select(-price)
-item <- head(used_cars_data, 1)
-
-item <- item %>% select(-price)
-
-pred_item <- predict(tree, item)
-
-table(round(pred_item, digits = 2))
+# Optimal value of NTREE
+plot(rf_model)
 
 ```
 
-
-Evaluating model prediction
+Evaluer l'efficacité du modèle
 
 ```{r}
 
-summary(tree)
+pred <- predict(rf_model, test_data)
 
-rmse(actual = test_data$price, predicted = pred)
+head(round(pred), digits = 0)
 
-# table_mat <- table(test_data$price, pred)
-# table_mat
-
-# Confusion matrix
-# confusionMatrix(pred, test_data$price)
+head(test_data$price)
 
 ```
 
+Number of nodes in each tree
 
+
+```{r}
+
+hist(treesize(rf_model))
+
+getTree(rf_model, 1, labelVar = TRUE)
+
+```
+
+Save random forest model as RDS file
+
+```{r}
+
+saveRDS(rf_model, "./model/rf_model.rds")
+
+```
 

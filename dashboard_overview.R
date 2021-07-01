@@ -28,9 +28,9 @@ year_list <- used_cars_data %>% count(year) %>% select(year)
 
 manufacturers_list <- used_cars_data %>% count(manufacturer) %>% select(manufacturer)
 
-condition_list <- used_cars_data %>% count(condition) %>% select(condition)
+condition_list <- used_cars_data %>% count(condition) %>% select(condition) %>% filter(condition != "")
 
-types_list <- used_cars_data %>% count(type) %>% select(type)
+types_list <- used_cars_data %>% count(type) %>% select(type) %>% filter(type != "")
 
 status_list <- used_cars_data %>% count(title_status) %>% select(title_status)
 
