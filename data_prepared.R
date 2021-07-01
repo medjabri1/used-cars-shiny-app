@@ -11,9 +11,10 @@ used_cars_data <- read.csv("./Dataset/vehicles.csv")
 
 # Cleaning Dataset columns / Remove unecesarry columns
 
-# Columns removed : id, url, county, description, image_url, region_url, VIN, model
+# Columns removed : id, url, county, description, image_url, region_url, VIN, lat, long, posting_data
 
-used_cars_data <- select(used_cars_data, -id, -url, -county, -description, -image_url, -region_url, -VIN, -model)
+used_cars_data <- used_cars_data %>%
+  select(-id, -url, -model, -county, -description, -image_url, -region_url, -VIN, -lat, -long, -posting_date)
 
 # Cleaning rows 
 
@@ -37,6 +38,6 @@ used_cars_data <- filter(
 )
 
 # Save data into r data format to reduce time load and not repeat all functions all over again
-# saveRDS(used_cars_data, "my_data.rds")
+saveRDS(used_cars_data, "./data/my_data.rds")
 
 # View(used_cars_data)

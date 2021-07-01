@@ -6,3 +6,19 @@
     font-family: 'Kaushan Script', cursive;
     /* <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet"> */
 }
+
+#shiny-tab-prediction .shiny-text-output {
+    margin : auto ;
+    width : fit-content;
+    text-align : center; 
+    margin-top : 50px;
+    font-size : 2rem;
+    letter-spacing : 1px;
+    font-family : 'Segoe UI';
+    font-weight : 700;
+    color : #000000cc;
+    background : #00000022;
+    padding : 15px 45px;
+    border-radius : 5px;
+    overflow: hidden;
+}

@@ -75,7 +75,7 @@ Cleaning Data / Columns
 
 colnames(used_cars_data)
 
-used_cars_data <- select(used_cars_data, -id, -url, -county, -description, -image_url, -region_url, -VIN, -model)
+used_cars_data <- select(used_cars_data, -id, -url, -county, -description, -image_url, -region_url, -VIN, -lat, -long)
 
 colnames(used_cars_data)
 

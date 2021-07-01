@@ -17,6 +17,10 @@ setwd("~/EST/LP/Stage/Projet")
 
 source("./dashboard_overview.R")
 
+# Load regression tree model from rds file ./model/tree_model.rds
+
+tree_model <- readRDS("./model/tree_model.rds")
+
 server <- function(input, output) {
 
   # Global overview
@@ -179,8 +183,170 @@ server <- function(input, output) {
     
   })
   
+  # Prediction Section
   
+  # regions list
   
+  output$ui_input_select_region <- renderUI({
+    selectInput(
+      "region_select_input",
+      "Select your region", 
+      mutate(region_list, region = stri_trans_toupper(region))
+    )
+  })
   
+  # year list
+  
+  output$ui_input_select_year <- renderUI({
+    selectInput(
+      "year_select_input",
+      "Select model year", 
+      year_list
+    )
+  })
+  
+  # manufacturers list
+  
+  output$ui_input_select_manufacturer <- renderUI({
+    selectInput(
+      "manufacturer_select_input", 
+      "Select vehicle manufacturer", 
+      mutate(manufacturers_list, manufacturer = stri_trans_toupper(manufacturer))
+    )
+  })
+  
+  # condition list
+  
+  output$ui_input_select_condition <- renderUI({
+    selectInput(
+      "condition_select_input", 
+      "Select vehicle condition", 
+      mutate(condition_list, condition = stri_trans_toupper(condition))
+    )
+  })
+  
+  # types list
+  
+  output$ui_input_select_type <- renderUI({
+    selectInput(
+      "type_select_input", 
+      "Select vehicle type", 
+      mutate(types_list, type = stri_trans_toupper(type))
+    )
+  })
+  
+  # status list
+  
+  output$ui_input_select_status <- renderUI({
+    selectInput(
+      "status_select_input", 
+      "Select vehicle status", 
+      mutate(status_list, title_status = stri_trans_toupper(title_status))
+    )
+  })
+  
+  # cylinders list
+  
+  output$ui_input_select_cylinders <- renderUI({
+    selectInput(
+      "cylinders_select_input", 
+      "Select vehicle cylinders", 
+      mutate(cylinders_list, cylinders = stri_trans_toupper(cylinders))
+    )
+  })
+  
+  # fuel list
+  
+  output$ui_input_select_fuel <- renderUI({
+    selectInput(
+      "fuel_select_input", 
+      "Select vehicle fuel", 
+      mutate(fuel_list, fuel = stri_trans_toupper(fuel))
+    )
+  })
+  
+  # transmission list
+  
+  output$ui_input_select_transmission <- renderUI({
+    selectInput(
+      "transmission_select_input", 
+      "Select vehicle transmission", 
+      mutate(transmission_list, transmission = stri_trans_toupper(transmission))
+    )
+  })
+  
+  # size list
+  
+  output$ui_input_select_size <- renderUI({
+    selectInput(
+      "size_select_input", 
+      "Select vehicle size", 
+      mutate(size_list, size = stri_trans_toupper(size))
+    )
+  })
+  
+  # drive list
+  
+  output$ui_input_select_drive <- renderUI({
+    selectInput(
+      "drive_select_input", 
+      "Select vehicle drive", 
+      mutate(drive_list, drive = stri_trans_toupper(drive))
+    )
+  })
+  
+  # paint list
+  
+  output$ui_input_select_paint <- renderUI({
+    selectInput(
+      "paint_select_input", 
+      "Select vehicle paint", 
+      mutate(paint_list, paint_color = stri_trans_toupper(paint_color))
+    )
+  })
+  
+  # state list
+  
+  output$ui_input_select_state <- renderUI({
+    selectInput(
+      "state_select_input", 
+      "Select your state", 
+      mutate(states_list, state = stri_trans_toupper(state))
+    )
+  })
+  
+  # Submit Action button
+  
+  observeEvent(input$submit_prediction_button_input, {
+    
+    cat("prediction started\n")
+    
+    item.region <- stri_trans_tolower(input$region_select_input)
+    item.odometer <- input$odometer_number_input
+    item.manufacturer <- stri_trans_tolower(input$manufacturer_select_input)
+    item.condition <- stri_trans_tolower(input$condition_select_input) ########
+    item.year <- as.numeric(input$year_select_input)
+    item.type <- stri_trans_tolower(input$type_select_input) #######
+    item.title_status <- stri_trans_tolower(input$status_select_input)
+    item.cylinders <- stri_trans_tolower(input$cylinders_select_input)
+    item.fuel <- stri_trans_tolower(input$fuel_select_input)
+    item.transmission <- stri_trans_tolower(input$transmission_select_input)
+    item.size <- stri_trans_tolower(input$size_select_input)
+    item.drive <- stri_trans_tolower(input$drive_select_input)
+    item.paint_color <- stri_trans_tolower(input$paint_select_input)
+    item.state <- stri_trans_tolower(input$state_select_input)
+    
+    pred <- predict(tree_model, item)
+    
+    cat("\n\n\n")
+    (item)
+    cat("\n\n\n")
+    cat(pred[1])
+    
+    # output$predicted_price_output <- renderText({ paste("Predicted price :", round(pred[1], digits = 0), "$") })
+    output$predicted_price_output <- renderText({ item.type })
+    
+    cat("prediction finished\n")
+  })
   
 }

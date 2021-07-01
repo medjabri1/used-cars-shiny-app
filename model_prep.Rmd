@@ -1,0 +1,123 @@
+Loading libraries
+
+```{r}
+
+library(dplyr)
+library(caTools)
+library(rpart)
+library(rpart.plot)  
+            
+library(ipred)       
+library(caret)      
+
+library(Metrics)
+
+```
+
+Laoding data from rds file
+
+```{r}
+
+used_cars_data <- readRDS("./data/my_data.rds")
+
+View(used_cars_data)
+
+```
+
+Studying data
+
+```{r}
+
+vehicle_conidtions <- used_cars_data %>%
+  count(condition)
+
+vehicle_status <- used_cars_data %>%
+  count(title_status)
+
+vehicle_cylinders <- used_cars_data %>%
+  count(cylinders)
+
+vehicle_paints <- used_cars_data %>%
+  count(paint_color)
+
+```
+
+
+Split data into training data and testing data
+
+```{r}
+
+set.seed(101) 
+
+sample <- sample.split(used_cars_data$price, SplitRatio = .80)
+train_data <- subset(used_cars_data, sample == TRUE)
+test_data  <- subset(used_cars_data, sample == FALSE)
+
+```
+
+Create decision tree model
+
+```{r}
+
+tree <- rpart(
+  formula = price ~ .,
+  data    = used_cars_data,
+  method  = "anova"
+)
+
+saveRDS(tree, "./model/tree_model.rds")
+
+```
+
+Plot decision tree model
+
+```{r}
+
+rpart.plot(tree, digits = 2)
+
+plotcp(tree)
+
+```
+
+Prediction with model on test data
+
+```{r}
+
+pred <- predict(tree, test_data)
+
+```
+
+predicton test
+
+```{r}
+
+# item <- tail(used_cars_data, 1) %>% select(-price)
+item <- head(used_cars_data, 1)
+
+item <- item %>% select(-price)
+
+pred_item <- predict(tree, item)
+
+table(round(pred_item, digits = 2))
+
+```
+
+
+Evaluating model prediction
+
+```{r}
+
+summary(tree)
+
+rmse(actual = test_data$price, predicted = pred)
+
+# table_mat <- table(test_data$price, pred)
+# table_mat
+
+# Confusion matrix
+# confusionMatrix(pred, test_data$price)
+
+```
+
+
+

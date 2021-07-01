@@ -252,7 +252,129 @@ ui_test <- dashboardPage(
       # Price Prediction tab content
       tabItem(
         tabName = "prediction",
-        h2("Price Prediction tab content")
+        fluidRow(
+
+          # Section title
+          column(
+            width = 12,
+            htmlTemplate("./www/Components/section_header.html", title = "Price prediction", bgcolor = "#588059"),
+          ),
+
+          # Prediction Inputs section
+          fluidRow(
+            style = "padding: 50px",
+
+            # Regions list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_region"),
+            ),
+
+            # odometer input
+            column(
+              width = 3,
+              numericInput("odometer_number_input", label = "Odometer in Miles", value = 20000),
+            ),
+
+            # Manufacturers list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_manufacturer"),
+            ),
+
+            # condition list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_condition"),
+            ),
+
+            # year list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_year"),
+            ),
+
+            # type list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_type"),
+            ),
+
+            # status list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_status"),
+            ),
+
+            # cylinders list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_cylinders"),
+            ),
+
+            # fuel list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_fuel"),
+            ),
+
+            # transmission list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_transmission"),
+            ),
+
+            # size list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_size"),
+            ),
+
+            # drive list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_drive"),
+            ),
+
+            # paint list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_paint"),
+            ),
+
+            # state list input
+            column(
+              width = 3,
+              htmlOutput("ui_input_select_state"),
+            ),
+
+            # submit button
+            column(
+              width = 12,
+              actionButton(
+                "submit_prediction_button_input", 
+                label = "Predict", 
+                width = "100%", 
+                style = "
+                  background-color : #6887c9; 
+                  color : #FFF; 
+                  font-size: 1.5rem; 
+                  font-weight: 600; 
+                  letter-spacing: 2px; 
+                  padding: 10px; 
+                  font-family: 'Segoe UI';
+                  text-transform: uppercase;
+                "
+              )
+            ),
+
+            # Prediction result output
+            column(
+              width = 12,
+              verbatimTextOutput("predicted_price_output", placeholder = FALSE),
+            )
+          )
+        )
       )
     )
   )
