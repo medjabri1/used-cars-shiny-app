@@ -35,7 +35,7 @@ Studying data
 
 ```{r}
 
-vehicle_conidtions <- used_cars_data %>%
+vehicle_conditions <- used_cars_data %>%
   count(condition)
 
 vehicle_status <- used_cars_data %>%
@@ -62,20 +62,6 @@ test_data  <- subset(used_cars_data, sample == FALSE)
 
 ```
 
-Create decision tree model
-
-```{r}
-
-tree <- rpart(
-  formula = price ~ .,
-  data    = used_cars_data,
-  method  = "anova"
-)
-
-saveRDS(tree, "./model/tree_model.rds")
-
-```
-
 Create random forest model
 
 ```{r}
@@ -83,6 +69,15 @@ Create random forest model
 rf_model <- randomForest(price ~ ., data = train_data, mtry = 3, importance = TRUE)
 
 ```
+
+Load random forest model from rds
+
+```{r}
+
+rf_model <- readRDS("./model/rf_model.rds")
+
+```
+
 
 Importance and variables usage
 

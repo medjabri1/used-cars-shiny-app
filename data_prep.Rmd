@@ -23,6 +23,14 @@ View(used_cars_data)
 
 ```
 
+Load data from rds file 
+
+```{r}
+
+used_cars_data <- readRDS("./data/my_data.rds")
+
+```
+
 Studying data structure
 
 ```{r}
@@ -75,7 +83,8 @@ Cleaning Data / Columns
 
 colnames(used_cars_data)
 
-used_cars_data <- select(used_cars_data, -id, -url, -county, -description, -image_url, -region_url, -VIN, -lat, -long)
+used_cars_data <- used_cars_data %>%
+  select(-id, -url, -model, -county, -description, -image_url, -region_url, -VIN, -lat, -long, -posting_date)
 
 colnames(used_cars_data)
 
@@ -125,6 +134,15 @@ used_cars_data <- filter(
 missmap(used_cars_data)
 
 ```
+
+Save Data to RDS file
+
+```{r}
+
+saveRDS(used_cars_data, "./data/my_data.rds")
+
+```
+
 
 
 

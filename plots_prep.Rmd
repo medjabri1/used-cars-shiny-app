@@ -48,8 +48,7 @@ Price increase Histogram Plot
 
 price_hist_plot <- used_cars_data %>%
   head(200) %>%
-  filter(year > 2005) %>%
-  filter(year < 2025) %>%
+  filter(year > 2005, year < 2025) %>%
   group_by(year) %>%
   mutate(price = mean(price)) %>%
   ggplot(aes(x = year, y = price)) +
@@ -84,9 +83,8 @@ ggplotly(condition_price_plot)
 number of Vehicles by manufacturers
 
 ```{r}
-
 vehicles_nbr_manufacturer_plot <- used_cars_data %>%
-  count(manufacturer) %>%
+  count(manufacturer) %>% arrange(desc(n)) %>% top_n(20) %>%
   ggplot(aes(x = reorder(manufacturer, -n, desc), y = n, colour = manufacturer)) +
   geom_point(size = 2, alpha = 0.7) +
   geom_segment(alpha = 0.7, size = 0.5, aes(x = manufacturer, xend = manufacturer, y = n, yend = 0)) +
@@ -97,8 +95,6 @@ vehicles_nbr_manufacturer_plot <- used_cars_data %>%
   ggtitle("Number of vehicles by manufacturers : Top") 
 
 ggplotly(vehicles_nbr_manufacturer_plot)
-
-
 ```
 
 
