@@ -9,6 +9,14 @@ library(caTools)
 library(hrbrthemes)
 library(stringi)
 
+library(rpart)
+library(rpart.plot)  
+
+library(ipred)       
+library(caret)   
+library(Metrics)
+library(randomForest)
+
 # Load data from rds
 
 setwd("~/EST/LP/Stage/Projet")
@@ -16,6 +24,8 @@ setwd("~/EST/LP/Stage/Projet")
 # Data is loaded along with overview parameters in dashboard_overview.R
 
 source("./dashboard_overview.R")
+
+# used_cars_data <- readRDS("./data/my_data.rds")
 
 # Load random forest regressor model from rds file ./model/rf_model.rds
 
@@ -323,6 +333,8 @@ server <- function(input, output) {
     
     item <- used_cars_data %>% head(1) %>% select(-price)
     
+    # item <- select(head(used_cars_data), -price)[1]
+    
     item$region <- stri_trans_tolower(input$region_select_input)
     item$odometer <- input$odometer_number_input
     item$manufacturer <- stri_trans_tolower(input$manufacturer_select_input)
@@ -338,7 +350,7 @@ server <- function(input, output) {
     item$paint_color <- stri_trans_tolower(input$paint_select_input)
     item$state <- stri_trans_tolower(input$state_select_input)
     
-    pred <- predict(rf_model, item)
+    pred <- predict(rf_model, data.frame(item))
   
     output$predicted_price_output <- renderText({ paste("Predicted price :", round(pred[1], digits = 0), "$") })
     
